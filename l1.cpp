@@ -137,5 +137,17 @@ int main() {
     head = reverse(head);
     cout<<"After reversing linked list: ";
     display(head);
+
+    // Merge two sorted linked lists
+    Node* list1 = build(3);
+    Node* list2 = build(3);
+    cout<<"First list: ";
+    display(list1);
+    cout<<"Second list: ";
+    display(list2);
+    Node* merged = mergeTwo(list1, list2);
+    cout<<"Merged list: ";
+    display(merged);
+
     return 0;
 }

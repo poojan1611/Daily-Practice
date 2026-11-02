@@ -1,67 +1,77 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-// Node structure
-class Node {
-public:
+struct Node{
     int data;
     Node* next;
-
-    // Constructor
-    Node(int value) {
-        data = value;
-        next = NULL;
-    }
+    Node(int val): data(val), next(nullptr){}
 };
 
-// Function to build linked list
-Node* buildLinkedList(int n) {
-    if (n <= 0) {
-        return NULL;
-    }
-
-    int value;
-    cout << "Enter " << n << " elements: ";
-
-    cin >> value;
-
-    Node* head = new Node(value);
+Node* build(int n){
+    if(n<=0) return nullptr;
+    int val;
+    cout<<"Enter "<<n<<" values: ";
+    cin>>val;
+    Node* head = new Node(val);
     Node* tail = head;
-
-    for (int i = 1; i < n; i++) {
-        cin >> value;
-
-        Node* newNode = new Node(value);
-        tail->next = newNode;
-        tail = newNode;
+    for (int i = 1; i < n; i++)
+    {
+        cin>>val;
+        Node* newnode = new Node(val);
+        tail->next = newnode;
+        tail = newnode;
     }
-
     return head;
 }
 
-// Function to display linked list
-void display(Node* head) {
+void display(Node* head){
     Node* temp = head;
-
-    while (temp != NULL) {
-        cout << temp->data << " -> ";
+    while (temp!= nullptr)
+    {
+        cout<<temp->data<<" -> ";
         temp = temp->next;
     }
-
-    cout << "NULL" << endl;
+    cout<<"Null"<<endl;
 }
 
-// Main function
+int length(Node* head){
+    int count = 0;
+    for(Node* p = head; p != nullptr; p = p->next) count++;
+    return count;
+}
+
+Node* Infront(Node* head, int x){
+    Node* n = new Node(x);
+    n->next = head;
+    return n;
+}
+
+Node* InEnd(Node* head, int x){
+    Node* n = new Node(x);
+    if(head == nullptr) return n;
+    Node* p = head;
+    while(p->next != nullptr) p= p->next;
+    p->next = n;
+    return head;
+}
+
 int main() {
+    
     int n;
+    cout<<"Enter value of n: ";
+    cin>>n;
 
-    cout << "Enter number of nodes: ";
-    cin >> n;
+    Node* head = build(n);
+    display(head);
 
-    Node* head = buildLinkedList(n);
+    cout<<"The length of list: "<<length(head)<<endl;
 
-    cout << "Linked List: ";
+    head = Infront(head, 0);
+    display(head);
+
+    head = InEnd(head, 9);
     display(head);
 
     return 0;
+    
 }

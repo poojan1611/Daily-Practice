@@ -85,6 +85,24 @@ Node* reverse(Node* head){
     return prev;
 }
 
+Node* mergeTwo(Node* a, Node* b) {
+    Node dummy(0);
+    Node* t = &dummy;
+    while (a != nullptr && b != nullptr) {
+        if (a->data <= b->data) {
+            t->next = a;
+            a = a->next;
+        } else {
+            t->next = b;
+            b = b->next;
+        }
+        t = t->next;
+    }
+    if (a != nullptr) t->next = a;
+    else t->next = b;
+    return dummy.next;
+}
+
 Node* findMid(Node* head){
     Node* slow = head;
     Node* fast = head;
@@ -130,6 +148,17 @@ int main() {
     // head = reverse(head);
     // cout<<"After Reversing the list: ";
     // display(head);
+
+    // Merge two sorted linked lists
+    Node* list1 = build(3);
+    Node* list2 = build(3);
+    cout<<"First list: ";
+    display(list1);
+    cout<<"Second list: ";
+    display(list2);
+    Node* merged = mergeTwo(list1, list2);
+    cout<<"Merged list: ";
+    display(merged);
 
     cout<<"Mid elemnt of the list is: "<<findMid(head)->data<<endl;
 
